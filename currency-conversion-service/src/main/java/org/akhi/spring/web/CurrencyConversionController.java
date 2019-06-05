@@ -19,7 +19,7 @@ public class CurrencyConversionController {
 	@Autowired
 	private CurrencyExchangeServiceProxy proxy;
 	
-	@RequestMapping("/currency-exchange/from/{from}/to/{to}/quantity/{quantity}")
+	@RequestMapping("/currency-conversion/from/{from}/to/{to}/quantity/{quantity}")
 	public CurrencyConversionBean convertCurrency(@PathVariable("from") String from, @PathVariable("to") String to,
 			@PathVariable("quantity") BigDecimal quantity) {
 
@@ -34,7 +34,7 @@ public class CurrencyConversionController {
 
 	}
 	
-	@RequestMapping("/currency-exchange-feign/from/{from}/to/{to}/quantity/{quantity}")
+	@RequestMapping("/currency-conversion-feign/from/{from}/to/{to}/quantity/{quantity}")
 	public CurrencyConversionBean convertCurrencyFein(@PathVariable("from") String from, @PathVariable("to") String to,
 			@PathVariable("quantity") BigDecimal quantity) {
 
