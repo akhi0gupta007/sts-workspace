@@ -37,10 +37,6 @@ public class CurrencyConversionController {
 	@RequestMapping("/currency-conversion-feign/from/{from}/to/{to}/quantity/{quantity}")
 	public CurrencyConversionBean convertCurrencyFein(@PathVariable("from") String from, @PathVariable("to") String to,
 			@PathVariable("quantity") BigDecimal quantity) {
-
-		Map<String, String> uriVariables = new HashMap<String, String>();
-		uriVariables.put("from", from);
-		uriVariables.put("to", to);
 		CurrencyConversionBean response = proxy.retrieveExchangeValue(from, to);
 
 		return new CurrencyConversionBean(response.getId(), from, to,
