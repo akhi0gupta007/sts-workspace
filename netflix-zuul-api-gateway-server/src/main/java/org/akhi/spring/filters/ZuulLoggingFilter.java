@@ -10,6 +10,20 @@ import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
 
+
+/**
+ * How to use this filter
+ * http://localhost:8765/{application-name}/uri
+
+http://localhost:8765/currency-exchange-service/currency-exchange/from/EUR/to/INR
+
+
+http://localhost:8000/currency-exchange/from/EUR/to/INR
+
+http://localhost:8000/currency-exchange/from/EUR/to/INR
+ * @author Akhilesh
+ *
+ */
 @Component
 public class ZuulLoggingFilter extends ZuulFilter {
 
