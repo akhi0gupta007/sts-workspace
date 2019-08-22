@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-export default class TestComponent3 extends Component{
+ class TestComponent3 extends Component{
     render(){
       return(
         <div className="App">       
@@ -9,4 +9,4 @@ export default class TestComponent3 extends Component{
     }
   }
  
-
+export default TestComponent3;

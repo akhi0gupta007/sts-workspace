@@ -11,8 +11,18 @@ import './App.css';
 class App extends Component {
   render() {
     return (
-      <div className="App">        
-        Hello World
+      <div className="App">  
+      <LearningComponent/>
+      </div>
+    );
+  }
+}
+
+class LearningComponent extends Component{
+  render(){
+    return(
+      <div className="LearningComponent">               
+        Hello World!
         <TestComponent/>
         <TestComponent2/>
         <TestComponent3/>
