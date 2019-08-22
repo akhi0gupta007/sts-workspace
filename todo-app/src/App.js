@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 import TestComponent ,{TestComponent2} from './components/learning-examples/TestComponent'
+import TestComponent3 from './components/learning-examples/TestComponent3'
 //Remember : Non-default classes from module requires curly braces
 import './App.css';
 
@@ -14,6 +15,7 @@ class App extends Component {
         Hello World
         <TestComponent/>
         <TestComponent2/>
+        <TestComponent3/>
         <TestFunctionComponent/>
       </div>
     );
