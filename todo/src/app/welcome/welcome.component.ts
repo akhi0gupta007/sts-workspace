@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 //by using export keyword this class can be used outside of this file ( or the module)
 export class WelcomeComponent implements OnInit {
-
+ 
   message = 'Some welcome message'
   param = ''
   //keyword constructor used to define constructor

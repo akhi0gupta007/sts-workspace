@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {WelcomeComponent} from '../welcome/welcome.component';
 
 export class Todo {
 
