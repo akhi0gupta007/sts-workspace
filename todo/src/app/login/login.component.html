@@ -1,0 +1,5 @@
+User Name: <input type="text" name="username"  [(ngModel)]="username" /> <!-- ngModel is Angular directive -->
+Password: <input type="password" name="password" [(ngModel)]="password"/>
+<button (click)=handleLogin() >Login</button>
+<br>
+<span>Example for interpolation to achieve two way data binding : {{username}}</span>
