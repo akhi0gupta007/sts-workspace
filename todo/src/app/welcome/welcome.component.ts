@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppComponent } from '../app.component';
 import { ActivatedRoute } from '@angular/router';
+import { WelcomeDataService } from '../service/data/welcome-data.service';
 
 @Component({
   selector: 'app-welcome',
@@ -14,14 +15,27 @@ export class WelcomeComponent implements OnInit {
   param = ''
   //keyword constructor used to define constructor
   //We are using ActivateRoute
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private service:WelcomeDataService) {
 
   }
 
   //quite similar to void ngOnInit()
-  ngOnInit() {
-    console.log(this.message)
+  ngOnInit() {    
     this.param = this.route.snapshot.params['name']
+  }
+
+  getWelcomeMessage(){
+    console.log(this.service.executeHelloWorldBeanService());
+    this.service.executeHelloWorldBeanService().subscribe(
+      response => console.log(response.message)
+    );
+
+    console.log('getWelcome() ends')
+    
+  }
+
+  handleSuccessfulResponse(response){
+    console.log(response);
   }
 
 }
