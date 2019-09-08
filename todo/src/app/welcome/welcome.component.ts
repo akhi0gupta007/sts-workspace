@@ -13,6 +13,8 @@ export class WelcomeComponent implements OnInit {
  
   message = 'Some welcome message'
   param = ''
+  welcomeMessageService:string
+  errorMessage:string
   //keyword constructor used to define constructor
   //We are using ActivateRoute
   constructor(private route: ActivatedRoute, private service:WelcomeDataService) {
@@ -27,15 +29,33 @@ export class WelcomeComponent implements OnInit {
   getWelcomeMessage(){
     console.log(this.service.executeHelloWorldBeanService());
     this.service.executeHelloWorldBeanService().subscribe(
-      response => console.log(response.message)
+      response => this.handleSuccessfulResponse(response),
+      error=>this.handleErrorResponse(error)
     );
 
     console.log('getWelcome() ends')
     
   }
 
+  getWelcomeMessageWithParam(){
+    
+    this.service.executeHelloWorldBeanServiceWithPathVariable(this.param).subscribe(
+      response => this.handleSuccessfulResponse(response),
+      error=>this.handleErrorResponse(error)
+    );
+
+    console.log('getWelcome() ends')
+    
+  }
+
+
   handleSuccessfulResponse(response){
-    console.log(response);
+    this.welcomeMessageService = response.message;
+    this.errorMessage='';
+  }
+
+  handleErrorResponse(error){
+    this.errorMessage = error.error.message;
   }
 
 }

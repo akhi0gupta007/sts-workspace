@@ -1,4 +1,4 @@
-package org.akhi.spring.rest;
+package org.akhi.spring.rest.helloWorld;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +18,7 @@ public class HelloWorldController {
 	@GetMapping(path = "/hello-world-bean")
 	public HelloWorldBean helloWorldBean() {
 		//throw new RuntimeException("Some Error has Happened! Contact Support at ***-***");
-		return new HelloWorldBean("Hello World - Changed");
+		return new HelloWorldBean("Hello World from Spring Boot");
 	}
 	
 	///hello-world/path-variable/in28minutes

@@ -1,4 +1,4 @@
-package org.akhi.spring.rest;
+package org.akhi.spring.rest.helloWorld;
 
 public class HelloWorldBean {
 

@@ -6,6 +6,15 @@
 
 <div class="container">
 Click here to get customised message 
-<button class= ".btn btn-success" (click)="getWelcomeMessage()">Get Welcome Message</button>
+<button class= ".btn btn-success" (click)="getWelcomeMessageWithParam()">Get Welcome Message</button>
 </div>
 
+<div class="container" *ngIf="welcomeMessageService">        
+        <h2>customised Welcome message</h2>
+        {{welcomeMessageService}}       
+</div>
+
+<div class="container" *ngIf="errorMessage">        
+        
+        {{errorMessage}}       
+</div>
