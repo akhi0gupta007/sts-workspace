@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { map } from "rxjs/operators";
+import { API_URL } from '../app.constants';
+
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +22,7 @@ export class BasicAuthenticationService {
         Authorization: basicAuthHeaderString
       }
     )
-    return this.http.get<AuthenticationBean>(`http://localhost:8080/basicauth`, { headers }).pipe(
+    return this.http.get<AuthenticationBean>(`${API_URL}/basicauth`, { headers }).pipe(
       map(
         data => {
           sessionStorage.setItem('authenticatedUser', username);
