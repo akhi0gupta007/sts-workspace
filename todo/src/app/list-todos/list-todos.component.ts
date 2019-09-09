@@ -49,6 +49,7 @@ export class ListTodosComponent implements OnInit {
         this.message = `Delete of todo ${id} Successful!`
       }
     )
+    console.log(`refreshTodos todo ${id}`)
     this.refreshTodos();
   }
 
