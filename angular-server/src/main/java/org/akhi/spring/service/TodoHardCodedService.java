@@ -3,6 +3,7 @@ package org.akhi.spring.service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.akhi.spring.model.Todo;
 import org.slf4j.Logger;
@@ -19,6 +20,7 @@ public class TodoHardCodedService {
 		todos.add(new Todo(++idCounter, "akhilesh", "Learn Angular", new Date(), false));
 		todos.add(new Todo(++idCounter, "akhilesh", "Learn Java 8", new Date(), false));
 		todos.add(new Todo(++idCounter, "akhilesh", "Learn Microservice", new Date(), false));
+		todos.add(new Todo(++idCounter, "akhilesh", "Learn Guitar", new Date(), false));
 	}
 
 	public List<Todo> findAll() {
@@ -26,14 +28,29 @@ public class TodoHardCodedService {
 	}
 
 	public Todo deleteById(long id) {
-		logger.info(":::::::::::::::::::DELETE REQUEST::::::::::::"+id);
-		logger.info(":::::::::::::::::::DELETE REQUEST::::::::::::"+todos);
+		logger.info(":::::::::::::::::::DELETE REQUEST::::::::::::" + id);
+		logger.info(":::::::::::::::::::DELETE REQUEST::::::::::::" + todos);
 		Todo todo = findById(id);
 		return todos.remove(todo) ? todo : null;
 
 	}
 
+	public Todo save(Todo todo) {
+		if (todo.getId() == -1) {
+			todo.setId(++idCounter);
+			todos.add(todo);
+		} else {
+			deleteById(todo.getId());
+			todos.add(todo);
+		}
+		return todo;
+	}
+
 	public Todo findById(long id) {
-		return todos.stream().filter(todo -> todo.getId() == id).findFirst().get();
+		Optional<Todo> todo = todos.stream().filter(todo1 -> todo1.getId() == id).findFirst();
+		if (todo.isPresent())
+			return todo.get();
+		else
+			return null;
 	}
 }

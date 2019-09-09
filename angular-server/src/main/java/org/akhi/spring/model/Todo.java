@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Todo {
 
-	private long id;
+	private long id = -1;
 	private String userName;
 	private String description;
 	private Date targetDate;
@@ -18,6 +18,10 @@ public class Todo {
 		this.description = description;
 		this.targetDate = targetDate;
 		this.isDone = isDone;
+	}
+
+	public Todo() {
+		super();
 	}
 
 	public String getDescription() {
