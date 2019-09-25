@@ -1,5 +1,6 @@
 <div class="container">
     <div class="alert alert-warning" *ngIf='invalidLogin'>{{errorMessage}}</div>
+    <p>Welcome : {{username}}</p>
 
     <div>
         User Name: <input type="text" name="username" [(ngModel)]="username" /> <!-- ngModel is Angular directive -->
