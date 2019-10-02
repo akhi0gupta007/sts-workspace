@@ -18,20 +18,20 @@ class Counter extends Component {
     render() {
         return (
             <div className="counter">
-                <CounterButton incrementMethod={this.increment} decrementMethod ={this.decrement}/>
-                <CounterButton incrementMethod={this.increment} decrementMethod ={this.decrement} by={3} />
-                <CounterButton incrementMethod={this.increment} decrementMethod ={this.decrement}  by={5} />
+                <CounterButton incrementMethod={this.increment} decrementMethod={this.decrement} />
+                <CounterButton incrementMethod={this.increment} decrementMethod={this.decrement} by={3} />
+                <CounterButton incrementMethod={this.increment} decrementMethod={this.decrement} by={5} />
                 <span className="count">{this.state.counter}</span>
-                <div> <button onClick={this.reset} className="reset">Reset</button></div>               
+                <div> <button onClick={this.reset} className="reset">Reset</button></div>
             </div>
         );
     }
 
-    reset(){
+    reset() {
         this.setState(
-           
-           {counter : 0}
-           
+
+            { counter: 0 }
+
         );
     }
 
@@ -58,44 +58,46 @@ class CounterButton extends Component {
 
     constructor() {
         super(); // this is must if you want to use this
-        this.state = {
-            counter: 0
-        }
+        // this.state = {
+        //     counter: 0
+        // }
 
-        this.increment = this.increment.bind(this)
-        this.decrement = this.decrement.bind(this)
+        // this.increment = this.increment.bind(this)
+        // this.decrement = this.decrement.bind(this)
     }
 
     render() {
         return (
             <div className="counter">
-                <button onClick={this.increment}>+{this.props.by}</button>
-                <button onClick={this.decrement}>-{this.props.by}</button>
+                {/* The way we passed the argument/parameter is only possible due to this arrow syntax, 
+                otherwise method will be called automatically */}
+                <button onClick={() => this.props.incrementMethod(this.props.by)}>+{this.props.by}</button>
+                <button onClick={() => this.props.decrementMethod(this.props.by)}>-{this.props.by}</button>
                 {/* <span className="count">{this.state.counter}</span> */}
             </div>
         );
     }
 
-    increment() {
-        console.log('increment from child');
-        this.setState({
-            counter: this.state.counter + this.props.by
-        }
-        );
+    // increment() {
+    //     console.log('increment from child');
+    //     this.setState({
+    //         counter: this.state.counter + this.props.by
+    //     }
+    //     );
 
-        this.props.incrementMethod(this.props.by);
-    }
+    //     this.props.incrementMethod(this.props.by);
+    // }
 
-    
-    decrement() {
-        console.log('decrement from child');
-        this.setState({
-            counter: this.state.counter - this.props.by
-        }
-        );
 
-        this.props.decrementMethod(this.props.by);
-    }
+    // decrement() {
+    //     console.log('decrement from child');
+    //     this.setState({
+    //         counter: this.state.counter - this.props.by
+    //     }
+    //     );
+
+    //     this.props.decrementMethod(this.props.by);
+    // }
 
 }
 
