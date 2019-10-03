@@ -1,7 +1,8 @@
 import React,{Component} from 'react';
 import TestComponent ,{TestComponent2} from './components/learning-examples/TestComponent'
 import TestComponent3 from './components/learning-examples/TestComponent3'
-import Counter from './components/counter/Counter'
+//import Counter from './components/counter/Counter'
+import TodoApp from './components/todo/TodoApp'
 //Remember : Non-default classes from module requires curly braces
 import './App.css';
 
@@ -13,7 +14,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">  
-      <Counter></Counter>
+     {/*  <Counter></Counter> */}
+     <TodoApp/>
       </div>
     );
   }
