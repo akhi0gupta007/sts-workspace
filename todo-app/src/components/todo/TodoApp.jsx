@@ -20,30 +20,16 @@ class LoginComponent extends Component {
             username: 'akhilesh',
             password: ''
         }
-
-        this.handleUserNameChange = this.handleUserNameChange.bind(this);
-        this.handlePasswordChange = this.handlePasswordChange.bind(this);
+        // this.handleUserNameChange = this.handleUserNameChange.bind(this);
+        // this.handlePasswordChange = this.handlePasswordChange.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
 
-    handleUserNameChange(event) {
-        console.log(event.target.value);
-        this.setState({
-            username: event.target.value
-        });
-    }
-
-
-    handlePasswordChange(event) {
-        console.log(event.target.value);
-        this.setState({
-            password: event.target.value
-        });
-    }
 
     handleChange(event) {
-        console.log(event.target.value);
+        console.log('change event '+event.target.value);
         this.setState({
-            username: event.target.value
+            [event.target.name]: event.target.value
         });
     }
 
@@ -51,13 +37,29 @@ class LoginComponent extends Component {
         return (
             <div>
                 {/* Username and password are controlled values */}
-                User Name:<input type="text" name="username" value={this.state.username} onChange={this.handleUserNameChange} />
-                Password:<input type="password" name="password" value={this.state.password} onChange={this.handlePasswordChange} />
+                User Name:<input type="text" name="username" value={this.state.username} onChange={this.handleChange} />
+                Password:<input type="password" name="password" value={this.state.password} onChange={this.handleChange} />
                 <button>Login</button>
             </div>
 
         )
     }
+
+    
+    // handleUserNameChange(event) {
+    //     console.log(event.target.value);
+    //     this.setState({
+    //         username: event.target.value
+    //     });
+    // }
+
+
+    // handlePasswordChange(event) {
+    //     console.log(event.target.value);
+    //     this.setState({
+    //         password: event.target.value
+    //     });
+    // }
 }
 
 export default TodoApp;
