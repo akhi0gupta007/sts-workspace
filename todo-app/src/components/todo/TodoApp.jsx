@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {BrowserRouter as Router,Route} from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 class TodoApp extends Component {
 
@@ -8,9 +8,12 @@ class TodoApp extends Component {
             <div className="TodoApp">
                 <Router>
                     <>
-                    <Route path ="/" exact component={LoginComponent}></Route>
-                    <Route path ="/login" component={LoginComponent}></Route>
-                    <Route path ="/welcome" component={WelcomeComponent}></Route>                   
+                        <Switch>
+                            <Route path="/" exact component={LoginComponent}></Route>
+                            <Route path="/login" component={LoginComponent}></Route>
+                            <Route path="/welcome/:name" component={WelcomeComponent}></Route>
+                            <Route path="" component={ErrorComponent}></Route>
+                        </Switch>
                     </>
                 </Router>
                 {/* <LoginComponent /> */}
@@ -19,12 +22,15 @@ class TodoApp extends Component {
     }
 }
 
-class WelcomeComponent extends Component{
-    render(){
-        return <div>Welcome akhilesh</div>
+class WelcomeComponent extends Component {
+    render() {
+        return <div>Welcome {this.props.match.params.name}</div>
     }
 }
 
+function ErrorComponent() {
+    return <div>An Error Occured!</div>
+}
 
 class LoginComponent extends Component {
 
@@ -53,10 +59,10 @@ class LoginComponent extends Component {
     render() {
         return (
             <div>
-               {/*  <ShowInvalidCredentials hasLoginFailed={this.state.hasLoginFailed}></ShowInvalidCredentials> */}
-               {this.state.hasLoginFailed && <div>Invalid Credntials</div>}
-               {this.state.showSuccessMessage && <div>Login Successful</div>}
-             {/* optimised functional component
+                {/*  <ShowInvalidCredentials hasLoginFailed={this.state.hasLoginFailed}></ShowInvalidCredentials> */}
+                {this.state.hasLoginFailed && <div>Invalid Credntials</div>}
+                {this.state.showSuccessMessage && <div>Login Successful</div>}
+                {/* optimised functional component
                <ShowLoginSucessMessage showSuccessMessage={this.state.showSuccessMessage}></ShowLoginSucessMessage> */}
                 {/* Username and password are controlled values */}
                 User Name:<input type="text" name="username" value={this.state.username} onChange={this.handleChange} />
@@ -69,13 +75,14 @@ class LoginComponent extends Component {
 
     loginClicked() {
         if (this.state.username === 'akhilesh' && this.state.password === 'dummy') {
-            console.log('Successful')
-            this.setState(
-                {
-                    showSuccessMessage: true,
-                    hasLoginFailed: false
-                }
-            )
+
+            this.props.history.push(`/welcome/${this.state.username}`)
+            // this.setState(
+            //     {
+            //         showSuccessMessage: true,
+            //         hasLoginFailed: false
+            //     }
+            // )
         } else {
             console.log('Failed')
             this.setState(
