@@ -5,7 +5,7 @@ import TestComponent3 from './components/learning-examples/TestComponent3'
 import TodoApp from './components/todo/TodoApp'
 //Remember : Non-default classes from module requires curly braces
 import './App.css';
-
+import './bootstrap.css';
 //This is class component, used for rendring
 // The HTML code inside the return method is actually called as JSX (can only have one root element), and it is possible due to Babel 
 //Go to Try it out section of Babel
