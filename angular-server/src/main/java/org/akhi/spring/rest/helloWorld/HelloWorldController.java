@@ -1,5 +1,7 @@
 package org.akhi.spring.rest.helloWorld;
 
+import java.util.Date;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,7 +14,7 @@ public class HelloWorldController {
 
 	@GetMapping(path = "/hello-world")
 	public String helloWorld() {
-		return "Hello World";
+		return "Hello World from Server at "+ new Date();
 	}
 
 	@GetMapping(path = "/hello-world-bean")
