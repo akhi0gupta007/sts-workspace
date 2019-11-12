@@ -2,18 +2,23 @@ import axios from "axios"
 class TodoDataService{
 
     retrieveAllTodos(name){
-        console.log("retrieveAllTodos")
         return axios.get(`http://localhost:8080/users/${name}/todos/`)
     }
 
     deleteTodo(name,id){
-        console.log("deleteTodo")
         return axios.delete(`http://localhost:8080/users/${name}/todos/${id}`)
     }
 
     retrieveTodo(name,id){
-        console.log("retrieveTodo")
         return axios.get(`http://localhost:8080/users/${name}/todos/${id}`)
+    }
+
+    updateTodo(name,id,todo){
+        return axios.put(`http://localhost:8080/users/${name}/todos/${id}`,todo)
+    }
+
+    createTodo(name,todo){
+        return axios.post(`http://localhost:8080/users/${name}/todos`,todo)
     }
 }
 
