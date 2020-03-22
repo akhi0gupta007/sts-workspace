@@ -62,7 +62,7 @@ class ListTodosComponent extends Component {
         TodoDataService.retrieveAllTodos()
         .then(
             response => {
-                // console.log(response)
+                 console.log(response)
                 this.setState(
                     {
                         todos: response.data

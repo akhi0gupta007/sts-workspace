@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import org.akhi.spring.errors.ResourceNotFoundException;
 import org.akhi.spring.model.Todo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +34,13 @@ public class TodoHardCodedService {
 	public Todo deleteById(long id) {
 		logger.info(":::::::::::::::::::DELETE REQUEST::::::::::::" + id);
 		logger.info(":::::::::::::::::::DELETE REQUEST::::::::::::" + todos);
-		Todo todo = findById(id);
+		Todo todo = null;
+		try {
+			todo = findById(id);
+		} catch (ResourceNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return todos.remove(todo) ? todo : null;
 
 	}
@@ -49,11 +56,11 @@ public class TodoHardCodedService {
 		return todo;
 	}
 
-	public Todo findById(long id) {
+	public Todo findById(long id) throws ResourceNotFoundException {
 		Optional<Todo> todo = todos.stream().filter(todo1 -> todo1.getId() == id).findFirst();
 		if (todo.isPresent())
 			return todo.get();
 		else
-			return null;
+			 throw new ResourceNotFoundException();
 	}
 }

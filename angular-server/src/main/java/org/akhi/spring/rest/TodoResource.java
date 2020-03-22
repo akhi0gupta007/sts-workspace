@@ -3,6 +3,7 @@ package org.akhi.spring.rest;
 import java.net.URI;
 import java.util.List;
 
+import org.akhi.spring.errors.ResourceNotFoundException;
 import org.akhi.spring.model.Todo;
 import org.akhi.spring.service.TodoHardCodedService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 public class TodoResource {
 
 	@Autowired
@@ -32,7 +33,7 @@ public class TodoResource {
 	}
 
 	@GetMapping("/users/{userName}/todos/{id}")
-	public Todo getAllTodos(@PathVariable String userName, @PathVariable long id) {
+	public Todo getAllTodos(@PathVariable String userName, @PathVariable long id) throws ResourceNotFoundException {
 		return todoService.findById(id);
 
 	}
