@@ -6,9 +6,9 @@ class App extends Component {
 
   state = {
     persons: [
-      { name: 'Akhilesh', age: 31 },
-      { name: 'Nancy', age: 32 },
-      { name: 'Aditi', age: 3 }
+      {id: 'as1', name: 'Akhilesh', age: 31 },
+      {id: 'as2', name: 'Nancy', age: 32 },
+      {id: 'as3', name: 'Aditi', age: 3 }
     ],
     otherStatus: 'Guten morgen',
     showPersons: false
@@ -19,23 +19,35 @@ class App extends Component {
     //DON'T DO THIS this.state.persons[0].name = 'Akhilesh Kumar Gupta';
     this.setState({
       persons: [
-        { name: newName, age: 31 },
-        { name: 'Nancy', age: 32 },
-        { name: 'Aditi', age: 3 }
+        {id: 'as1', name: newName, age: 31 },
+        {id: 'as2', name: 'Nancy', age: 32 },
+        {id: 'as3', name: 'Aditi', age: 3 }
       ]
     })
   }
 
-  nameChangeHandler = (event) => {
-    console.log('Was clicked' + this.state.persons);
+  deletePersonHandler = (index) => {
+    //const persons = this.state.persons.slice(); //slice is copying
+    const persons = [...this.state.persons]; //spread operator, does the copying
+    persons.splice(index, 1);
+    this.setState({ persons: persons });
+  }
+
+  nameChangeHandler = (event, id) => {
+    const personIndex = this.state.persons.findIndex(
+      p => {
+        return p.id === id;
+      }
+    );
+    const person = {
+    ...this.state.persons[personIndex]
+    };
+    //const altertNative = Object.assign({},this.state.persons[personIndex]); //does the same thing, i.e copy the object
     //DON'T DO THIS this.state.persons[0].name = 'Akhilesh Kumar Gupta';
-    this.setState({
-      persons: [
-        { name: 'Max', age: 31 },
-        { name: event.target.value, age: 32 },
-        { name: 'Aditi', age: 3 }
-      ]
-    })
+    person.name = event.target.value;
+    const persons = [...this.state.persons];
+    persons[personIndex] = person;
+    this.setState({persons:persons});
   }
 
   togglePersonsHandler = () => {
@@ -55,20 +67,19 @@ class App extends Component {
       cursor: 'pointer'
     };
 
-    let person = null;
+    let persons = null;
 
-    if(this.state.showPersons){
-      person = (
+    if (this.state.showPersons) {
+      persons = (
         <div>
-          <Person name={this.state.persons[0].name} age={this.state.persons[0].age}> </Person>
-          <Person
-            click={this.switchMatchHandler.bind(this, 'Vicky')}
-            name={this.state.persons[1].name}
-            age={this.state.persons[1].age}
-            changed={this.nameChangeHandler}>
-          </Person>
-          <Person name={this.state.persons[2].name} age={this.state.persons[2].age}>  My Hobbies : Racing
-        </Person>
+          {this.state.persons.map((person, index) => {
+            return <Person
+              click={() => this.deletePersonHandler(index)}
+              name={person.name}
+              age={person.age}
+              key={person.id} 
+              changed = {(event) => this.nameChangeHandler(event,person.id) }/>
+          })}
         </div>
       )
     }
@@ -82,8 +93,8 @@ class App extends Component {
 
         <button
           style={style}
-          onClick={() => this.togglePersonsHandler()}>Toggle Persons</button>      
-          {person}
+          onClick={() => this.togglePersonsHandler()}>Toggle Persons</button>
+        {persons}
       </div>
     );
   }
