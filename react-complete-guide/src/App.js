@@ -1,7 +1,21 @@
 import React, { Component } from 'react';
 import './App.css';
-import Radium, {StyleRoot} from 'radium'
 import Person from './Person/Person'
+import styled from 'styled-components'
+
+const StyledButton = styled.button`
+background-color: ${props => props.alt ? 'red':'green'};
+color:white;
+font: inherit;
+border: 1px solid blue;
+padding:8px;
+cursor: pointer;
+
+&:hover{
+  background-color:${props => props.alt ? 'salmon':'lightgreen'};
+  color:black;
+}
+`;
 
 class App extends Component {
 
@@ -13,7 +27,7 @@ class App extends Component {
     ],
     otherStatus: 'Guten morgen',
     showPersons: false
-  }
+  } 
 
   switchMatchHandler = (newName) => {
     console.log('Was clicked' + this.state.persons);
@@ -90,11 +104,11 @@ class App extends Component {
         </div>
       )
 
-      style.backgroundColor = 'red';
-      style[':hover'] = {
-        backgroundColor:'salmon',
-        color:'black'
-      }
+      // style.backgroundColor = 'red';
+      // style[':hover'] = {
+      //   backgroundColor:'salmon',
+      //   color:'black'
+      // }
     }
     const classes = [];
     if (this.state.persons.length <= 2) {
@@ -105,7 +119,6 @@ class App extends Component {
     }
 
     return (
-      <StyleRoot>
       <div className="App">
         <h1>Hi I am a react App</h1>
         <p className={classes.join(' ')}>It works! Hello World</p>
@@ -113,14 +126,15 @@ class App extends Component {
           style={style}
           onClick={() => this.switchMatchHandler('Akhilesh Gupta')}>Switch Name</button> */}
 
-        <button
-          style={style}
-          onClick={() => this.togglePersonsHandler()}>Toggle Persons</button>
+        <StyledButton         
+          onClick={() => this.togglePersonsHandler()}
+          alt={this.state.showPersons}>
+            Toggle Persons
+            </StyledButton>
         {persons}
       </div>
-      </StyleRoot>
     );
   }
 }
 
-export default Radium(App);
+export default App;
