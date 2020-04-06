@@ -1,18 +1,13 @@
-import React,{Component} from "react";
+import React,{PureComponent} from "react";
 import Person from "./Person/Person";
-class Persons extends Component{
+class Persons extends PureComponent{
 
-  
-  // static getDerivedStateFromProps(props,state){
-  //   console.log('[Persons.js] getDerivedStateFromProps ',props);
-  //   return state;
+
+  // shouldComponentUpdate(nextProps,nextState){
+  //   console.log('[Persons.js] shouldComponentUpdate');
+  //   return (nextProps.persons !== this.props.persons) //No need to reload this component if there is no update;
   // }
-
-
-  shouldComponentUpdate(nextProps,nextState){
-    console.log('[Persons.js] shouldComponentUpdate');
-    return (nextProps.persons !== this.props.persons) //No need to reload this component if there is no update;
-  }
+  // * Use PureComponent do the same check insteaf of manually comparing individual checks
 
   getSnapshotBeforeUpdate(prevProps,prevState){
     console.log('[Persons.js] getSnapshotBeforeUpdate');
