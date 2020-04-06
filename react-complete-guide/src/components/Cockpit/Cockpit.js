@@ -1,7 +1,22 @@
-import React from "react";
+import React,{useEffect} from "react";
 import classes from "./Cockpit.css";
 
 const cockpit = (props) => {
+  useEffect(() => {
+    console.log('[cockpit.js] useEffect ');
+    //Http request. it is componentdidupdate and componentdidmount in one effect
+    //Fake timeout
+    //can have many useffect
+    const timer = setTimeout(() => {
+      alert('Saved data to cloud');
+    }, 2000);
+    return () => {
+      clearTimeout(timer);
+      console.log('[cockpit.js] cleanup useEffect ');
+    }
+  }
+    , []);
+
   const assignedClasses = [];
   let btnClass = [];
   if (props.showPersons) {
