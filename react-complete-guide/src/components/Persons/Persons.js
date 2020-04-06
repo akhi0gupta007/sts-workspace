@@ -11,7 +11,7 @@ class Persons extends Component{
 
   shouldComponentUpdate(nextProps,nextState){
     console.log('[Persons.js] shouldComponentUpdate');
-    return true;
+    return (nextProps.persons !== this.props.persons) //No need to reload this component if there is no update;
   }
 
   getSnapshotBeforeUpdate(prevProps,prevState){
