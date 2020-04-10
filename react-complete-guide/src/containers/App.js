@@ -20,7 +20,8 @@ class App extends Component {
     ],
     otherStatus: "Guten morgen",
     showPersons: false,
-    showCockpit:true
+    showCockpit:true,
+    changeCounter:0    
   };
 
   static getDerivedStateFromProps(props,state){
@@ -75,7 +76,22 @@ class App extends Component {
     person.name = event.target.value;
     const persons = [...this.state.persons];
     persons[personIndex] = person;
-    this.setState({ persons: persons });
+    console.log(this.state.changeCounter);
+    
+ /*    This approach below does not guarantee immediate state unstable_batchedUpdates, better way is below
+    this.setState({
+      persons: persons,
+      changeCounter: this.state.changeCounter + 1,
+    }); */
+
+    this.setState(
+      (prevState,props) => {
+        return{
+          persons:persons,
+          changeCounter : prevState.changeCounter + 1
+        }
+      }
+    );
   };
 
   togglePersonsHandler = () => {
