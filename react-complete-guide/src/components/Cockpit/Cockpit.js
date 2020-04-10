@@ -1,21 +1,28 @@
-import React,{useEffect} from "react";
+import React, { useEffect,useRef } from "react";
 import classes from "./Cockpit.css";
+import AuthContext from "../../context/auth-context"
 
 const cockpit = (props) => {
+
+  const toggleBtnRef = useRef(null);
+
   useEffect(() => {
-    console.log('[cockpit.js] useEffect ');
+    console.log("[cockpit.js] useEffect ");
+
+    //useEffect is react hook executes after parsing JSX
     //Http request. it is componentdidupdate and componentdidmount in one effect
     //Fake timeout
     //can have many useffect
-    const timer = setTimeout(() => {
-      alert('Saved data to cloud');
-    }, 2000);
+
+    // const timer = setTimeout(() => {
+    //   alert("Saved data to cloud");
+    // }, 2000);
+    toggleBtnRef.current.click();
     return () => {
-      clearTimeout(timer);
-      console.log('[cockpit.js] cleanup useEffect ');
-    }
-  }
-    , []);
+     // clearTimeout(timer);
+      console.log("[cockpit.js] cleanup goes here after render useEffect ");
+    };
+  }, []);
 
   const assignedClasses = [];
   let btnClass = [];
@@ -35,9 +42,13 @@ const cockpit = (props) => {
       {/* <button onClick={props.clicked} className={btnClass.join(' ')}></button> 
             Alternative way of onClick method
             */}
-      <button onClick={() => props.clicked()} className={btnClass.join(" ")}>
+      <button ref={toggleBtnRef} onClick={() => props.clicked()} className={btnClass.join(" ")}>
         Toggle Persons
       </button>
+      <AuthContext.Consumer>
+       {(context) =>  <button onClick={context.login}>Log in</button>} 
+      </AuthContext.Consumer>
+     
     </div>
   );
 };

@@ -3,12 +3,12 @@ import classes from "./App.css";
 import Persons from "../components/Persons/Persons";
 import Cockpit from "../components/Cockpit/Cockpit";
 import WithClass from "../hoc/WithClass";
+import AuthContext from "../context/auth-context";
 
 class App extends Component {
-
-  constructor(props){
+  constructor(props) {
     super(props);
-    console.log('[App.js] constructor');
+    console.log("[App.js] constructor");
   }
 
   state = {
@@ -20,25 +20,26 @@ class App extends Component {
     ],
     otherStatus: "Guten morgen",
     showPersons: false,
-    showCockpit:true,
-    changeCounter:0    
+    showCockpit: true,
+    changeCounter: 0,
+    autheticated: false,
   };
 
-  static getDerivedStateFromProps(props,state){
-    console.log('[App.js] getDerivedStateFromProps ',props);
+  static getDerivedStateFromProps(props, state) {
+    console.log("[App.js] getDerivedStateFromProps ", props);
     return state;
   }
 
-  componentDidMount(){
-    console.log('[App.js] componentDidMount ');
+  componentDidMount() {
+    console.log("[App.js] componentDidMount ");
   }
 
-  componentDidUpdate(){
-    console.log('[App.js] componentDidUpdate ');
+  componentDidUpdate() {
+    console.log("[App.js] componentDidUpdate ");
   }
 
-  shouldComponentUpdate(nextProps,nextState){
-    console.log('[App.js] shouldComponentUpdate');
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log("[App.js] shouldComponentUpdate");
     return true;
   }
   // componentWillMount(){
@@ -76,22 +77,20 @@ class App extends Component {
     person.name = event.target.value;
     const persons = [...this.state.persons];
     persons[personIndex] = person;
-    console.log(this.state.changeCounter);
-    
- /*    This approach below does not guarantee immediate state unstable_batchedUpdates, better way is below
+
+    /*    This approach below does not guarantee immediate state unstable_batchedUpdates, better way is below
+      This is better way when you are dependent on old State
     this.setState({
       persons: persons,
       changeCounter: this.state.changeCounter + 1,
     }); */
 
-    this.setState(
-      (prevState,props) => {
-        return{
-          persons:persons,
-          changeCounter : prevState.changeCounter + 1
-        }
-      }
-    );
+    this.setState((prevState, props) => {
+      return {
+        persons: persons,
+        changeCounter: prevState.changeCounter + 1,
+      };
+    });
   };
 
   togglePersonsHandler = () => {
@@ -101,8 +100,12 @@ class App extends Component {
     });
   };
 
+  loginHandler = () => {
+    this.setState({ autheticated: true });
+  };
+
   render() {
-    console.log('[App.js] render');
+    console.log("[App.js] render");
     let persons = null;
     if (this.state.showPersons) {
       persons = (
@@ -110,21 +113,29 @@ class App extends Component {
           persons={this.state.persons}
           clicked={this.deletePersonHandler}
           changed={this.nameChangeHandler}
+          isAuthenticated={this.state.autheticated}
         />
       );
     }
 
     return (
       <WithClass classes={classes.App}>
-        <button onClick={() => this.setState({showCockpit:false})}>Remove Cockpit</button>
-        {this.state.showCockpit?
-        <Cockpit
-          title={this.props.appTitle}
-          showPersons={this.state.showPersons}
-          personsLength={this.state.persons.length}
-          clicked={this.togglePersonsHandler}
-        /> : null}
-        {persons}
+        {/*    <button onClick={() => this.setState({showCockpit:false})}>Remove Cockpit</button> */}
+
+        <AuthContext.Provider
+          value={{
+            authenticated: this.state.autheticated,
+            login: this.loginHandler,
+          }}
+        >
+          <Cockpit
+            title={this.props.appTitle}
+            showPersons={this.state.showPersons}
+            personsLength={this.state.persons.length}
+            clicked={this.togglePersonsHandler}           
+          />
+          {persons}
+        </AuthContext.Provider>
       </WithClass>
     );
   }
