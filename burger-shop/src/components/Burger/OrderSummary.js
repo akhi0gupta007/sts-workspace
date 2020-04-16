@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Aux from "../../hoc/Auxilary";
 import Button from "../UI/Button/Button";
-
+/* We changed it to class component just to check performance and logs */
 class OrderSummary extends Component {
  
   componentDidUpdate(){
