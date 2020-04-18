@@ -1,3 +1,4 @@
 .metadata/
 Servers/
 *.jar
+posts/node_modules/
