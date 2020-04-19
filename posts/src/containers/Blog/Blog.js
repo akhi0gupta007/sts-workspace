@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import axios from "axios";
+//import axios from "axios";
+import axios from '../../axios'
+
 
 import Post from "../../components/Post/Post";
 import FullPost from "../../components/FullPost/FullPost";
@@ -18,6 +20,7 @@ class Blog extends Component {
     axios
       .get("/posts")
       .then((response) => {
+        console.log(response);
         const post = response.data.slice(0, 4);
         const updatedPosts = post.map((post) => {
           return {
