@@ -25,6 +25,8 @@ class FullPost extends Component {
           .then((response) => {
             console.log('Refresh............[FullPost.js]'+ response);
             this.setState({ loadedPost: response.data });
+            //Can also be done via history push
+            //Redirect replaces the page so back button wont give you this page, redirect == histpry.replace(url)
           });
       }
     }
