@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import axios from "../../../axios";
+import {Route} from "react-router-dom";
 
 import "./Posts.css";
 import Post from "../../../components/Post/Post";
 import Spinner from "../../../components/Spinner/Spinner";
+import FullPost from "../FullPost/FullPost"
 
 class Posts extends Component {
   state = {
@@ -12,7 +14,7 @@ class Posts extends Component {
   };
 
   componentDidMount() {
-    console.log("[Blog.js ]componentDidUpdate ", this.props);
+    console.log("[Posts.js ]componentDidUpdate ", this.props);
     axios
       .get("/posts")
       .then((response) => {
@@ -33,7 +35,7 @@ class Posts extends Component {
 
   postSelectedHandler = (id) => {
     //this.props.history.push({ pathname: "/posts/" + id }); alternative
-    this.props.history.push("/posts/" + id ); //simpler
+    this.props.history.push("/" + id ); //simpler
   };
 
   render() {
@@ -53,7 +55,14 @@ class Posts extends Component {
       });
     }
 
-    return <section className="Posts">{posts}</section>;
+    return( 
+    <div>
+      <section className="Posts">
+        {posts}
+      </section>
+      <Route path="/:id" exact component={FullPost} />
+    </div>
+    );
   }
 }
 
