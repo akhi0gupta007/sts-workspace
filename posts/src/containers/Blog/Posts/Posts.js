@@ -14,28 +14,27 @@ class Posts extends Component {
   };
 
   componentDidMount() {
-    console.log("[Posts.js ]componentDidUpdate ", this.props);
     axios
-      .get("/posts")
-      .then((response) => {
-        console.log(response);
-        const post = response.data.slice(0, 4);
-        const updatedPosts = post.map((post) => {
-          return {
-            ...post,
-            author: "Max",
-          };
-        });
-        this.setState({ posts: updatedPosts, loaded: true });
-      })
-      .catch((error) => {
-        console.log(error);
+    .get("/posts")
+    .then((response) => {
+      //console.log(response);
+      const post = response.data.slice(0, 4);
+      const updatedPosts = post.map((post) => {
+        return {
+          ...post,
+          author: "Max",
+        };
       });
+      this.setState({ posts: updatedPosts, loaded: true });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   }
 
   postSelectedHandler = (id) => {
     //this.props.history.push({ pathname: "/posts/" + id }); alternative
-    this.props.history.push("/" + id ); //simpler
+    this.props.history.push("/posts/" + id ); //simpler
   };
 
   render() {
@@ -60,7 +59,7 @@ class Posts extends Component {
       <section className="Posts">
         {posts}
       </section>
-      <Route path="/:id" exact component={FullPost} />
+      <Route path={this.props.match.url + '/:id'} exact component={FullPost} />
     </div>
     );
   }
