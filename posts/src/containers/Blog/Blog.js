@@ -15,7 +15,7 @@ class Blog extends Component {
             <ul>
               <li>
                 <NavLink to="/" exact>
-                  Home
+                  Posts
                 </NavLink>{" "}
               </li>
               <li>
@@ -34,8 +34,8 @@ class Blog extends Component {
           </nav>
         </header>
         {/* <Route path="/" exact render={() => <h1>Home</h1>} /> */}
-        <Switch> {/* This tag only loads one route (best match first), not all of them */}
-          <Route path="/" exact component={Posts} />
+        <Route path="/" exact component={Posts} />
+        <Switch> {/* This tag only loads one route (best match first), not all of them */}        
           <Route path="/new-post" component={NewPost} />
           <Route path="/posts/:id" exact component={FullPost} />
         </Switch>
