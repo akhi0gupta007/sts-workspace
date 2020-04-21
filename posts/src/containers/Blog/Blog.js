@@ -38,7 +38,10 @@ class Blog extends Component {
         <Switch> {/* This tag only loads one route (best match first), not all of them */}        
         <Route path="/new-post" component={NewPost} />    
         <Route path="/posts"  component={Posts} />      
-        <Redirect from="/" to="/posts"/>
+        <Redirect from="/" to="/posts"/> {/* 
+        This / (root) URL  catches everything and all URLS, alternatively we can just define Route without path component
+        <Route exact render={() => <h1>Not found</h1>
+        */}
         {/* <Route path="/"  component={Posts} />    */}   
                    
         </Switch>
