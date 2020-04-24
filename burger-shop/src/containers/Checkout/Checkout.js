@@ -10,9 +10,9 @@ class Checkout extends Component {
     price:0
   };
 
-  constructor(props){
-    super(props);
-  }
+  // constructor(props){
+  //   super(props);
+  // }
 
   
   
