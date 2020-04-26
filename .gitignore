@@ -2,3 +2,4 @@
 Servers/
 *.jar
 posts/node_modules/
+counter/node_modules/
