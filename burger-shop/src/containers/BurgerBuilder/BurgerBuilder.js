@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {connect} from 'react-redux';
+import { connect } from "react-redux";
 
 import Aux from "../../hoc/Auxilary/Auxilary";
 import Burger from "../../components/Burger/Burger";
@@ -9,15 +9,16 @@ import OrderSummary from "../../components/Burger/OrderSummary";
 import axios from "../../axios-orders";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
-import * as burgerBuilderActions from '../../store/actions/index'; //Index can be ommited here
+import * as actions from "../../store/actions/index"; //Index can be ommited here
 
 class BurgerBuilder extends Component {
+
   state = {
-    purchasing: false   
+    purchasing: false,
   };
 
   componentDidMount() {
-    console.log('[BurgerBuilder] onInitIngredients');
+    console.log("[BurgerBuilder] onInitIngredients");
     this.props.onInitIngredients();
   }
 
@@ -29,7 +30,7 @@ class BurgerBuilder extends Component {
       .reduce((sum, el) => {
         return sum + el;
       }, 0);
-    return (sum > 0 );
+    return sum > 0;
   }
 
   purchaseHandler = () => {
@@ -40,9 +41,10 @@ class BurgerBuilder extends Component {
     this.setState({ purchasing: false });
   };
 
-  purchaseContinueHandler = () => {   
+  purchaseContinueHandler = () => {
+    this.props.onInitPurchase();
     this.props.history.push({
-      pathname: "/checkout"
+      pathname: "/checkout",
     });
   };
 
@@ -99,21 +101,26 @@ class BurgerBuilder extends Component {
   }
 }
 
-const mapStateToProps= state => {
+const mapStateToProps = (state) => {
   return {
-    ings : state.burgerBuilder.ingredients,
-    totalPrice : state.burgerBuilder.totalPrice,
-    error:state.burgerBuilder.error
+    ings: state.burgerBuilder.ingredients,
+    totalPrice: state.burgerBuilder.totalPrice,
+    error: state.burgerBuilder.error,
+    purchased:state.order.purchased
   };
-}
+};
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-     onIngredientAdded: (ingName) => dispatch(burgerBuilderActions.addIngredient(ingName)),
-     onIngredientRemoved: (ingName) => dispatch(burgerBuilderActions.removeIngredient(ingName)),
-     onInitIngredients: () => dispatch(burgerBuilderActions.initIngredients())
-  }
-}
+    onIngredientAdded: (ingName) => dispatch(actions.addIngredient(ingName)),
+    onIngredientRemoved: (ingName) =>
+      dispatch(actions.removeIngredient(ingName)),
+    onInitIngredients: () => dispatch(actions.initIngredients()),
+    onInitPurchase: () => dispatch(actions.purchaseInit()),
+  };
+};
 
-
-export default connect(mapStateToProps,mapDispatchToProps)(withErrorHandler(BurgerBuilder, axios));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withErrorHandler(BurgerBuilder, axios));

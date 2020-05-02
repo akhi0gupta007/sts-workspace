@@ -39,3 +39,53 @@ export const purchaseBurger = (orderData) => {
         });
     };
 }
+
+export const purchaseInit = () => {
+    return {
+        type: actionTypes.PURCHASE_INIT
+    }
+}
+
+export const fetchOrdersStart = () => {
+    return{
+        type:actionTypes.FETCH_ORDERS_START
+    }
+}
+
+
+export const fetchOrdersFail = (error) => {
+    return{
+        type:actionTypes.FETCH_ORDERS_FAIL,
+        error:error
+    }
+}
+
+
+export const fetchOrdersSuccess = (orders) => {
+    return{
+        type:actionTypes.FETCH_ORDERS_SUCCESS,
+        orders:orders
+    }
+}
+
+export const fetchOrders = () => {
+    return dispatch => { // This syntax is due to redux thunk middleware, whicn enables us to create action creators like this
+        dispatch(fetchOrdersStart());
+        axios
+        .get("/orders.json")
+        .then((res) => {
+          const fetchedOrder = [];
+          for (let key in res.data) {
+            fetchedOrder.push({
+              ...res.data[key],
+              id: key,
+            });
+          }
+          dispatch(fetchOrdersSuccess(fetchedOrder));
+        })
+        .catch((error) => {
+            console.log('Error im fetching butger',error);
+          dispatch(fetchOrdersFail(error));
+        });
+    };
+}
