@@ -10,12 +10,15 @@ import Checkout from "./containers/Checkout/Checkout";
 import Orders from "./containers/Orders/Orders";
 import burgerBuilderReducer from './store/reducers/burgerBuilder';
 import orderReducer from './store/reducers/order';
+import Auth from './containers/Auth/Auth';
+import authReducer from './store/reducers/auth';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
   burgerBuilder:burgerBuilderReducer,
-  order:orderReducer
+  order:orderReducer,
+  auth:authReducer
 });
 
 const store = createStore(rootReducer,composeEnhancers(
@@ -32,6 +35,7 @@ function App() {
             <Switch>
               <Route path="/checkout" component={Checkout} />
               <Route path="/orders" component={Orders} />
+              <Route path="/auth" component={Auth} />
               <Route path="/" exact component={BurgerBuilder} />
             </Switch>
           </Layout>
