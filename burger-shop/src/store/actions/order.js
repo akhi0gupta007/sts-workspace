@@ -25,11 +25,11 @@ export const purchaseBurgerStart = () => {
 };
 
 //ASYNC ONE
-export const purchaseBurger = (orderData) => {
+export const purchaseBurger = (orderData,token) => {
     return dispatch => { // This syntax is due to redux thunk middleware, whicn enables us to create action creators like this
         dispatch(purchaseBurgerStart());
         axios
-        .post("/orders.json", orderData)
+        .post("/orders.json?auth="+token, orderData)
         .then((response) => {
             console.log('[order.js] action',response.data);
             dispatch(purchaseBurgerSuccess(response.data.name,orderData))
@@ -68,11 +68,11 @@ export const fetchOrdersSuccess = (orders) => {
     }
 }
 
-export const fetchOrders = () => {
+export const fetchOrders = (token) => {
     return dispatch => { // This syntax is due to redux thunk middleware, whicn enables us to create action creators like this
         dispatch(fetchOrdersStart());
         axios
-        .get("/orders.json")
+        .get("/orders.json?auth="+ token)
         .then((res) => {
           const fetchedOrder = [];
           for (let key in res.data) {
