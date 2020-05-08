@@ -6,7 +6,6 @@ class OrderSummary extends Component {
  
   /* This could be functional component. We changed it to class component just to check performance and logs */
   componentDidUpdate(){
-    console.log("OrderSummary componentDidUpdate");
   }
 
   render() {

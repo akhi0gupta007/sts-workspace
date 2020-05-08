@@ -39,7 +39,6 @@ const reducer = (state = initialState, action) => {
         loading: true, //we can resuse loading
       };
     case actionTypes.FETCH_ORDERS_SUCCESS:
-      console.log('[order.js] action orders ',action.orders);
       return {
         ...state,
         orders: action.orders,

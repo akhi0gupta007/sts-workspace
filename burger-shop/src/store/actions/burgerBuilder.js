@@ -32,7 +32,6 @@ export const fetchIngredientsFailed = () => {
 //ASYNC ONE
 export const initIngredients = () => { 
     return dispatch =>  { // This syntax is due to redux thunk middleware, whicn enables us to create action creators like this
-        console.log('initIngredients action');
     axios
       .get("/ingredients.json")
       .then((response) => {

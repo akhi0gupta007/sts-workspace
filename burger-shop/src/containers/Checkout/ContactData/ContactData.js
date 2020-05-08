@@ -9,6 +9,7 @@ import Spinner from "../../../components/UI/Spinner/Spinner";
 import Input from "../../../components/UI/Input/Input";
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
 import * as actions from '../../../store/actions/index';
+import {updateObject,checkValidity} from '../../../shared/utility';
 
 class ContactData extends Component {
   state = {
@@ -76,6 +77,7 @@ class ContactData extends Component {
         value: "",
         validation: {
           required: true,
+          isEmail: true
         },
         valid: false,
         touched: false,
@@ -119,43 +121,58 @@ class ContactData extends Component {
     this.props.onOrderBurger(order,this.props.token); 
   };
 
-  checkValidity(value, rules) {
-    if(!rules){ //null check
-      return true;
-    }
-    let isValid = true;
-    if (rules.required) {
-      isValid = value.trim() !== "" && isValid;
-    }
-    if (rules.minLength) {
-      isValid = value.length >= rules.minLength && isValid;
-    }
-    if (rules.maxLength) {
-      isValid = value.length <= rules.maxLength && isValid;
-    }
-    return isValid;
-  }
 
   //This is two way binding, event is default param but id is not
-  inputChangedHandler = (event, id) => {
-    const updatedOrderForm = {
-      ...this.state.orderForm, //This is deep cloning
-    };
-    const updatedFormElement = { ...updatedOrderForm[id] }; //This is deep cloning
-    updatedFormElement.value = event.target.value;
-    updatedFormElement.valid = this.checkValidity(
-      updatedFormElement.value,
-      updatedFormElement.validation
-    );
-    updatedFormElement.touched=true;
-    console.log(updatedFormElement.valid);
-    updatedOrderForm[id] = updatedFormElement;
+  // inputChangedHandler = (event, id) => {
+ 
+  //   const updatedFormElement = updateObject(this.state.orderForm[id],{
+  //     value: event.target.value,
+  //     valid:this.checkValidity(
+  //       event.target.value,
+  //       this.state.orderForm[id].validation
+  //     ),
+  //     touched:true
+  //   });//Refractored
+  //   // const updatedFormElement = { ...updatedOrderForm[id] }; //This is deep cloning
+  //   // updatedFormElement.value = event.target.value;
+  //   // updatedFormElement.valid = this.checkValidity(
+  //   //   updatedFormElement.value,
+  //   //   updatedFormElement.validation
+  //   // );
+  //   // updatedFormElement.touched=true;
+
+  //  // const updatedOrderForm = {
+  //   //   ...this.state.orderForm, //This is deep cloning
+  //   // };
+
+  //   const updatedOrderForm = updateObject(this.state.orderForm,{
+  //      id:updatedFormElement
+  //   });
+  //   let formIsValid = true;
+  //   for(let id in updatedOrderForm){
+  //     formIsValid = updatedOrderForm[id].valid && formIsValid;
+  //   }
+  //   this.setState({ orderForm: updatedOrderForm, formIsValid:formIsValid});
+  // };
+
+  inputChangedHandler = (event, inputIdentifier) => {
+        
+    const updatedFormElement = updateObject(this.state.orderForm[inputIdentifier], {
+        value: event.target.value,
+        valid: checkValidity(event.target.value, this.state.orderForm[inputIdentifier].validation),
+        touched: true
+    });
+    const updatedOrderForm = updateObject(this.state.orderForm, {
+        [inputIdentifier]: updatedFormElement
+    });
+    
     let formIsValid = true;
-    for(let id in updatedOrderForm){
-      formIsValid = updatedOrderForm[id].valid && formIsValid;
+    for (let inputIdentifier in updatedOrderForm) {
+        formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid;
     }
-    this.setState({ orderForm: updatedOrderForm, formIsValid:formIsValid});
-  };
+    this.setState({orderForm: updatedOrderForm, formIsValid: formIsValid});
+}
+
 
   render() {
     const formElementsArray = [];

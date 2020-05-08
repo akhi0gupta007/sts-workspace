@@ -14,7 +14,6 @@ class App extends Component {
 
   componentDidMount() {
     this.props.onTryAutoSignUp();
-    console.log('onTryAutoSignUp');
   }
   
   render() {
